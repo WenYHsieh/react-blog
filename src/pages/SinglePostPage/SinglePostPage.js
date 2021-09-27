@@ -36,7 +36,7 @@ function SinglePostItem({ SinglePost }) {
     <>
       <SinglePostWrapper>
         <SinglePostInfos>
-          <SinglePostTitle>{escape(SinglePost.title)}</SinglePostTitle>
+          <SinglePostTitle>{SinglePost.title}</SinglePostTitle>
           <SinglePostDate>
             {new Date(SinglePost.createdAt).toDateString()}
           </SinglePostDate>
