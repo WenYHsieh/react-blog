@@ -7,7 +7,7 @@ const jwtToken = getAuthToken()
 const instance = axios.create({
   baseURL: `${apiHost}`,
 })
-const getMeRequest = axios.create({
+const instanceWithToken = axios.create({
   baseURL: `${apiHost}`,
   headers: {
     authorization: `Bearer ${jwtToken}`,
@@ -23,4 +23,5 @@ const userPostRequest = axios.create({
 export const getPosts = (id, params) => instance.get('/posts/' + id + params)
 export const register = (data) => userPostRequest.post('/register', data)
 export const login = (data) => userPostRequest.post('/login', data)
-export const getMe = () => getMeRequest.get('/me')
+export const getMe = () => instanceWithToken.get('/me')
+export const addPost = (data) => instanceWithToken.post('/posts', data)

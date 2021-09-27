@@ -5,7 +5,9 @@ import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import Register from './pages/Register/Register'
 import NavBar from './components/NavBar'
-import BlogPost from './pages/BlogPost/BlogPost'
+import AddPostPage from './pages/AddPostPage/AddPostPage'
+import SinglePostPage from './pages/SinglePostPage/SinglePostPage'
+import PostArchivesPage from './pages/PostArchivesPage/PostArchivesPage'
 import { ResetStyle, GlobalStyle } from './constants/globalStyle'
 import { PageWrapper } from './components/PageWrapper'
 import { AuthContext } from './context'
@@ -40,7 +42,15 @@ export default function App() {
             <Route path='/register'>
               <Register />
             </Route>
-            <Route path='/posts/:id' children={<BlogPost />} />
+            <Route path='/archive'>
+              <PostArchivesPage />
+            </Route>
+            {user && (
+              <Route path='/addPost'>
+                <AddPostPage />
+              </Route>
+            )}
+            <Route path='/posts/:id' children={<SinglePostPage />} />
             <Route path='/'>
               <HomePage />
             </Route>
@@ -50,9 +60,3 @@ export default function App() {
     </AuthContext.Provider>
   )
 }
-// 登入頁面：輸入帳號密碼後可以登入
-// 註冊頁面：可以開放使用者註冊
-// About 頁面：隨意顯示一些關於這個部落格的話
-// 文章列表頁面：可以看到所有文章，一頁只會顯示 5 筆，需要支援分頁功能，可以換頁
-// 單篇文章頁面：點進去文章以後可以看到文章完整內容
-// 發表文章頁面：可以輸入標題跟內文發文

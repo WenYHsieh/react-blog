@@ -55,12 +55,25 @@ export default function NavBar() {
         <NavBarLink to='/' $active={'/' === location.pathname}>
           Home
         </NavBarLink>
+        <NavBarLink to='/archive' $active={'/archive' === location.pathname}>
+          Archive
+        </NavBarLink>
         <NavBarLink to='/about' $active={'/about' === location.pathname}>
           About
         </NavBarLink>
-        <NavBarLink to='/register' $active={'/register' === location.pathname}>
-          Register
-        </NavBarLink>
+        {user && (
+          <NavBarLink to='/addPost' $active={'/addPost' === location.pathname}>
+            Post Article
+          </NavBarLink>
+        )}
+        {!user && (
+          <NavBarLink
+            to='/register'
+            $active={'/register' === location.pathname}
+          >
+            Register
+          </NavBarLink>
+        )}
         {!user && (
           <NavBarLink to='/login' $active={'/login' === location.pathname}>
             Login

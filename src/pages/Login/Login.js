@@ -94,16 +94,9 @@ export default function Login() {
       .catch((err) => setErrorMsg(err.response.data.message))
   }
   const handleInputChange = (e) => {
-    switch (e.target.name) {
-      case 'userName':
-        setUserName(e.target.value)
-        break
-      case 'password':
-        setPassword(e.target.value)
-        break
-      default:
-        console.log('im default')
-    }
+    e.target.getAttribute('name') === 'userName'
+      ? setUserName(e.target.value)
+      : setPassword(e.target.value)
   }
   return (
     <>

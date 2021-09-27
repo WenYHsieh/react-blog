@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { PageWrapper } from '../../components/PageWrapper'
-import { register } from '../../api'
-import { useState } from 'react'
+import { register, getMe } from '../../api'
+import { useState, useContext } from 'react'
 import { setAuthToken } from '../../utils'
+import { useHistory } from 'react-router'
+import { AuthContext } from '../../context'
 
 const Title = styled.div`
   font-size: 30px;
@@ -58,10 +60,18 @@ const SubmitBtn = styled.div`
     color: white;
   }
 `
+const ErrorMsg = styled.div`
+  color: red;
+  margin-top: 20px;
+`
+
 export default function Register() {
+  const { setUser } = useContext(AuthContext)
   const [nickName, setNickName] = useState('')
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+  const history = useHistory()
 
   const handleSubmit = () => {
     register(
@@ -70,14 +80,23 @@ export default function Register() {
         username: userName,
         password: password,
       })
-    ).then((data) => {
-      if (data.data.ok === 1) {
-        setAuthToken(data.data.token)
-      }
-    })
+    )
+      .then((res) => {
+        if (res.data.ok === 1) {
+          setAuthToken(res.data.token)
+          getMe().then((res) => {
+            if (res.data.ok !== 1) {
+              setAuthToken(null)
+            }
+            setUser(res.data.data)
+            history.push('/')
+          })
+        }
+      })
+      .catch((err) => setErrorMsg(err.response.data.message))
   }
   const handleInputChange = (e) => {
-    switch (e.target.name) {
+    switch (e.target.getAttribute('name')) {
       case 'nickName':
         setNickName(e.target.value)
         break
@@ -119,6 +138,7 @@ export default function Register() {
             }}
           />
           <SubmitBtn onClick={handleSubmit}> SUBMIT </SubmitBtn>
+          <ErrorMsg>{errorMsg}</ErrorMsg>
         </FormWrapper>
       </PageWrapper>
     </>

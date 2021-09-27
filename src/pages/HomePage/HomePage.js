@@ -5,8 +5,16 @@ import styled from 'styled-components'
 import { getPosts } from '../../api'
 import { Loading } from '../../components/Loading'
 
+const Title = styled.div`
+  font-size: 30px;
+  width: 200px;
+  text-align: center;
+  margin: 20px auto;
+  color: #5e5e5e;
+`
+
 const PostWrapper = styled.div`
-  width: 80%;
+  width: 60%;
   height: 60px;
   border-bottom: 1px solid #b4b4b4;
   display: flex;
@@ -47,7 +55,7 @@ export default function HomePage() {
   let [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    getPosts('', '?_sort=createdAt&_order=desc').then((data) => {
+    getPosts('', '?_sort=createdAt&_limit=5&_order=desc').then((data) => {
       if (data) {
         setPosts(data.data)
         setIsLoaded(true)
@@ -56,7 +64,10 @@ export default function HomePage() {
   }, [])
 
   return (
-    <>{isLoaded ? posts.map((post) => <Post post={post} />) : <Loading />}</>
+    <>
+      <Title>Latest Posts</Title>
+      {isLoaded ? posts.map((post) => <Post post={post} />) : <Loading />}
+    </>
   )
 }
 
