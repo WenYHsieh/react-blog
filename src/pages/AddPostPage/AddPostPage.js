@@ -92,7 +92,7 @@ export default function AddPostPage() {
   return (
     <>
       <AddPostWrapper>
-        <Title>Write whatever you want ...</Title>
+        <Title>Write something...</Title>
         <TitleInput
           name='title'
           placeholder='Title'
