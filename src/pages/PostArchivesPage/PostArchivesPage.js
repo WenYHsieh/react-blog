@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { getPosts } from '../../api'
-import { Loading } from '../../components/Loading'
+import Loading from '../../components/Loading/Loading'
 
 const Title = styled.div`
   font-size: 30px;

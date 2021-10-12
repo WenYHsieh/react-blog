@@ -101,7 +101,7 @@ export default function Login() {
   return (
     <>
       <PageWrapper>
-        <Title> Login </Title>
+        <Title> 登入 </Title>
         <FormWrapper>
           <Input
             name='userName'
